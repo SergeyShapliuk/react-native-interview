@@ -1,0 +1,133 @@
+# React Native Developer — From Experienced Developer to Senior
+
+Курс для разработчика, который **уже делает React Native приложения** и хочет перейти от «умею реализовать» к «понимаю почему и умею спроектировать».
+
+Это не путь Junior → Middle → Senior. Это путь **Experienced React Native Developer → Senior React Native Engineer**.
+
+> Полная архитектура курса — [COURSE_ARCHITECTURE.md](./COURSE_ARCHITECTURE.md).
+> Статус: архитектура зафиксирована, уроки не написаны.
+
+---
+
+## Кому курс
+
+Вам подойдёт, если вы хотите:
+
+- систематизировать знания, накопленные практикой;
+- освежить фундамент JavaScript / TypeScript / React, не проходя его заново с нуля;
+- понять внутреннее устройство React и React Native;
+- разобраться в performance глубже, чем «обернуть в `memo`»;
+- понимать native layer, а не обходить его;
+- принимать архитектурные решения и уметь их защищать;
+- подготовиться к уровню Senior React Native Engineer.
+
+Курс не подойдёт, если React Native вы только начинаете: здесь нет обучения базовому синтаксису и нет пошагового «сделай первый экран».
+
+---
+
+## Что нужно уметь на входе
+
+Не «знать синтаксис», а уметь без помощи:
+
+- поднять RN-проект и запустить его на обеих платформах;
+- написать экран со списком, формой и навигацией;
+- подключить REST API, обработать загрузку и ошибку;
+- подключить библиотеку, требующую нативной линковки;
+- прочитать чужой код проекта и внести изменение;
+- собрать релизную сборку хотя бы под одну платформу.
+
+**Не требуется:** опыт нативных модулей, понимание Fabric / TurboModules / JSI, настройка CI/CD и мониторинга, глубокий TypeScript, умение профилировать.
+
+---
+
+## Что вы сможете на выходе
+
+- Локализовать дроп FPS до конкретного слоя (JS thread / UI thread / rendering / images / native) и доказать замерами.
+- Спроектировать refresh-token flow, корректный при 10 параллельных 401.
+- Разделить клиентский стейт и серверный кэш и обосновать, где лежит каждая единица данных.
+- Спроектировать offline-first поток с очередью мутаций и разрешением конфликтов.
+- Предложить план изменения архитектуры для приложения из 40 feature-модулей — с этапами, рисками и критерием отката.
+- Написать нативный модуль и оценить стоимость владения им.
+- Выстроить релизный процесс со staged rollout и откатом, получить читаемый стектрейс из продакшена.
+- Провести threat modeling и обосновать не только внедрение security-практики, но и отказ от неё.
+- Пройти system design сессию и защитить решение через trade-offs.
+
+---
+
+## Философия
+
+Курс не отвечает на вопрос «что такое X». Он отвечает на: **почему X**, **как X работает внутри**, **когда X не подходит**, **какие альтернативы**, **какие последствия у решения**, **как найти проблему**.
+
+Три правила:
+
+1. **Фундамент не пропускается, но и не растягивается.** Базовые темы идут как REFRESH — компактно, с акцентом на грани и типичные ошибки.
+2. **Ни одна тема не живёт изолированно.** У каждой есть явная связь с изученным ранее и с тем, что будет дальше.
+3. **Количество уроков — следствие содержания**, а не план. Ориентир: approximately 100–140 lessons, subject to refinement during detailed curriculum design.
+
+### Уровни уроков
+
+| Уровень | Что это |
+|---|---|
+| 🟢 **REFRESH** | быстро обновить известное. Формат: краткий refresh → короткая проверка понимания → RN relevance |
+| 🟡 **DEEP DIVE** | разобраться в механизме и причинах. Основной уровень курса |
+| 🔴 **SENIOR** | внутреннее устройство, trade-offs, архитектурные последствия, принятие решений |
+
+Каждый урок 🟡 и 🔴 разбирает тему с семи сторон: что это · как работает · почему важно · где в React Native · типичные ошибки · trade-offs · связь с другими частями системы.
+
+Не каждый урок обязан быть 🔴 — уровень определяется темой.
+
+---
+
+## Структура
+
+| Блок | Этап | О чём |
+|---|---|---|
+| [01](./01-javascript/) | JavaScript Refresh & Internals | фундамент языка: от 🟢 refresh до references, closures, event loop, memory, GC |
+| [02](./02-typescript/) | TypeScript for Experienced Developers | типы как инструмент проектирования, типобезопасность на границах системы |
+| [03](./03-react/) | React Deep Dive | Fiber, фазы рендера, referential equality, мемоизация, Context, React Compiler |
+| [04](./04-react-native/) | React Native Core, Internals & Application | bridge и New Architecture как другая модель, Hermes как движок и выбор движка, Metro, навигация, accessibility |
+| [05](./05-performance/) | Performance | три потока, бюджет кадра, списки, изображения, профилирование, методика investigation |
+| [06](./06-state-and-data/) | State Management & Data | клиентское состояние: выбор инструмента, селекторы, нормализация, персистентность, граница с серверным состоянием |
+| [07](./07-networking/) | Networking & Distributed Data | server state как распределённые данные, API, auth, кэш, WebSocket, offline-first, конфликты |
+| [08](./08-architecture/) | Architecture | границы модулей, feature-based, DI, ADR, технический долг, «нужен ли native layer» |
+| [09](./09-native/) | Native Development | TurboModules, Fabric-компоненты, JSI, permissions, сборка и линковка |
+| [10](./10-production/) | Production & Tooling | релизы, CI/CD, OTA, staged rollout, symbolication, production security |
+| [11](./11-testing/) | Testing | Jest + RNTL, E2E, пирамида под мобильный проект, тесты как gate |
+| [12](./12-senior/) | Senior Engineering & System Design | четыре направления: technical decisions · production incidents · system design · technical leadership → capstone |
+
+Прогрессия не линейна: нативный слой идёт по цепочке 04 (как устроен) → 08 (нужен ли нам) → 09 (как писать); навигация изучается в 04, а её performance — в 05, а push и server events — в 07. Полный граф связей — в [COURSE_ARCHITECTURE.md](./COURSE_ARCHITECTURE.md#9-граф-связей-курса).
+
+---
+
+## Практика
+
+**Сквозной проект — RN Academy** ([project/](./project/)). Проект эволюционирует вместе с курсом: архитектура усложняется только после того, как соответствующая тема изучена. Заранее ничего не проектируется.
+
+Кроме проекта: debugging exercises, performance exercises, architecture case studies, code review exercises, refactoring exercises, system design exercises.
+
+**Checkpoint после каждого блока** — задача, а не вопросы на термины. Плюс четыре stage gate и финальный capstone:
+
+| Gate | После | Пример |
+|---|---|---|
+| G1 Foundations | 01–03 | найти причины лишних ре-рендеров и объяснить через object identity |
+| G2 Platform | 04–05 | «экран лагает при скролле» — определить слой и доказать замерами |
+| G3 Data | 06–07 | 10 параллельных 401 — спроектировать refresh token flow |
+| G4 Engineering | 08–11 | 40 feature-модулей — план изменения архитектуры |
+| Capstone | 12 | system design с защитой решения |
+
+---
+
+## Cross-cutting concerns
+
+Security, Testing, Performance, Debugging, Observability, Accessibility, Error Handling, Documentation и Code Review не привязаны к одному блоку — они проходят через курс и углубляются.
+
+- **Testing is introduced progressively throughout the course, while block 11 provides the systematic testing strategy** — [подробнее](./COURSE_ARCHITECTURE.md#16-testing-progression).
+- **Security** изучается там, где у неё есть контекст: auth в 07, permissions в 09, production security в 10, threat modeling в 12. Практики вроде certificate pinning подаются не как обязательный чек-лист, а по схеме threat → mitigation → limitations → trade-offs → decision — [Security Map](./COURSE_ARCHITECTURE.md#15-security-map).
+
+---
+
+## Отношение к материалам в корне репозитория
+
+`V1.md`, `V2.md`, `V3.md` в корне — это **отдельный банк вопросов для собеседования**, созданный раньше курса. Он сохраняется как есть и не смешивается с курсом.
+
+Курс фиксирует архитектурную карту «существующий вопрос → будущий блок/урок» ([Migration Map](./COURSE_ARCHITECTURE.md#17-migration-map-v1v2v3--блоки-курса)). Физический перенос материала произойдёт позже, при написании уроков; старые файлы при этом не удаляются и не выпотрашиваются.
