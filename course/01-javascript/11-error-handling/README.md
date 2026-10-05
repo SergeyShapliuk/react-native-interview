@@ -22,9 +22,9 @@
 
 **Опирается на:** [1.1 Variables и scope](../01-variables-and-scope/).
 
-**Готовит:** 1.18 Promises · 1.19 async/await · 1.20 Event loop (все — [часть 2](../)) · Error Boundaries (3.11) · ошибки, retry, backoff и таймауты (7.3) · Sentry / Crashlytics и symbolication (10.6) · postmortem (12.10).
+**Готовит:** 1.18 Promises · 1.19 async/await · 1.20 Event loop (все — [часть 2](../)) · Error Boundaries (3.16) · ошибки, retry, backoff и таймауты (7.3) · Sentry / Crashlytics и symbolication (10.6) · postmortem (12.10).
 
-**Концерн курса.** Это первое появление concern «Error Handling»: 1.11 → 3.11 → 7.3 → 10.6 → 12.10.
+**Концерн курса.** Это первое появление concern «Error Handling»: 1.11 → 3.16 → 7.3 → 10.6 → 12.10.
 
 **RN Academy (P1).** Типы ошибок разбора входных данных и явное поведение при некорректных данных.
 
