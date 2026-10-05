@@ -3,7 +3,7 @@
 **Блок:** [01 — JavaScript Refresh & Internals](../)
 **Уровень:** 🟡 DEEP DIVE
 **Prerequisites:** [1.4 Objects](../04-objects-copying-and-identity/), [1.5 Arrays](../05-arrays-order-identity-mutation/), [1.6 Array methods](../06-array-methods/)
-**Следующий урок:** 1.13 Mutation и immutability — план в [README блока](../), текст не написан
+**Следующий урок:** [1.13 Mutation и immutability](../13-mutation-and-immutability/)
 
 > Первый урок части 2. Часть 1 обновляла фундамент; здесь начинаются механизмы, и формат меняется: 🟡-урок разбирается по **семи углам** — что это · как работает · почему важно · где в React Native · типичные ошибки · trade-offs · связи с другими частями системы.
 

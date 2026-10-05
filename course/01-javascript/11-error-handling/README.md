@@ -3,7 +3,7 @@
 **Блок:** [01 — JavaScript Refresh & Internals](../)
 **Уровень:** 🟢 REFRESH
 **Prerequisites:** [1.1 Variables и scope](../01-variables-and-scope/)
-**Следующий урок:** последний урок части 1 (Refresh). Дальше начинается [часть 2 — Internals](../), первый урок которой — 1.12 References; её текст ещё не написан.
+**Следующий урок:** [1.12 References и referential equality](../12-references-and-referential-equality/) — первый урок части 2 (Internals)
 
 ## Цель
 
