@@ -128,7 +128,7 @@
 
 1. **Фундамент не пропускается, но и не растягивается.** Базовые темы присутствуют как REFRESH — компактно, с акцентом на грани и ошибки, а не на синтаксис.
 2. **Ни одна тема не живёт изолированно.** У каждой темы есть явная связь с уже изученным и с тем, что будет дальше.
-3. **Количество уроков — следствие содержания.** Не дробим искусственно, не склеиваем разные сложные концепции ради уменьшения счёта, объединяем только тесно связанные простые темы, Senior-темы оставляем отдельными уроками. На сегодня планы блоков дают **164 урока**, и это **soft target**, а не ограничение: курс не укладывается в число насильно. Если содержание требует больше уроков, их становится больше, и счётчик пересчитывается по таблицам блоков.
+3. **Количество уроков — следствие содержания.** Не дробим искусственно, не склеиваем разные сложные концепции ради уменьшения счёта, объединяем только тесно связанные простые темы, Senior-темы оставляем отдельными уроками. На сегодня планы блоков дают **170 уроков**, и это **soft target**, а не ограничение: курс не укладывается в число насильно. Если содержание требует больше уроков, их становится больше, и счётчик пересчитывается по таблицам блоков.
 
 ---
 
@@ -221,7 +221,7 @@ references · immutability · closures · execution context · `this` · prototy
 **Цель:** использовать систему типов как инструмент проектирования, а не как аннотации поверх готового кода.
 
 🟢 базовые типы, generics, утилитарные типы (`Partial` / `Pick` / `Omit` / `Record`)
-🟡 `unknown` vs `any`, type guards и assertion functions · discriminated unions и narrowing · `interface` vs `type` · `satisfies` и template literal types · `strict` по флагам, что именно включает каждый · `.d.ts`, module augmentation и нетипизированные RN-библиотеки
+🟡 `unknown` vs `any`, type guards и assertion functions · discriminated unions и narrowing · `interface` vs `type` · `satisfies` и template literal types · `strict` по флагам, что именно включает каждый · `.d.ts`, module augmentation и нетипизированные RN-библиотеки · **типизация React/RN-компонентов и хуков**
 🔴 conditional types и `infer` · типизация полиморфного API-слоя · runtime-валидация на границе и вывод типа из схемы · типобезопасность на границах системы (навигация, API, нативные модули, хранилище)
 
 > **Границы системы — ось блока.** Тип проверяется компилятором только внутри кодовой базы; на границе (ответ сервера, параметры экрана, контракт нативного модуля, значение из хранилища) не проверяется ничего. Поэтому runtime-валидация с выводом типа из схемы — отдельный 🔴-урок, а не примечание к уроку про границы: без неё `as` остаётся единственным инструментом, и типизированное приложение падает там же, где нетипизированное.
@@ -234,10 +234,12 @@ references · immutability · closures · execution context · `this` · prototy
 
 **Цель:** понять, что React делает между вызовом `setState` и появлением пикселя, и научиться на это влиять осознанно.
 
-🟡 reconciliation и Fiber · роль `key` · **путь обновления: setState → update queue → batching → scheduling → render → commit** · правила хуков и зависимостей · `useEffect` vs `useLayoutEffect` · **refs: `useRef` / `forwardRef` / `useImperativeHandle`** · referential equality · `memo` / `useMemo` / `useCallback` · Context и его цена, паттерны дробления · controlled vs uncontrolled · Error Boundaries
+🟡 reconciliation и Fiber · роль `key` · **путь обновления: setState → update queue → batching → scheduling → render → commit** · **lifecycle компонента и StrictMode** · правила хуков и зависимостей · `useEffect` vs `useLayoutEffect` · **когда эффект не нужен** · **`useState` vs `useReducer`** · **refs: `useRef` / `forwardRef` / `useImperativeHandle`** · referential equality · `memo` / `useMemo` / `useCallback` · **кастомные хуки как единица переиспользования** · **composition: `children`, render props, compound components** · Context и его цена, паттерны дробления · controlled vs uncontrolled · Error Boundaries
 🔴 Suspense и concurrent features · React Compiler: что он убирает и где ручная мемоизация всё ещё нужна · **`useSyncExternalStore` и tearing**
 
 > **Урок про путь обновления — переходный урок курса JavaScript → React → React Native.** Он отвечает на вопрос, почему вызов `setState` не означает немедленный рендер: обновление попадает в очередь, несколько обновлений батчатся в один рендер, React планирует работу и может её прервать, render-фаза чистая и прерываемая, commit-фаза синхронная. Опирается на очереди задач и микротасков из блока 01 и на reconciliation; готовит блок 05, где «лишний рендер» и «долгий commit» — разные проблемы с разными инструментами.
+
+> **Композиция: механизм здесь, решение — в 06.** `children`, render props и compound components разбираются в блоке 03 как механизмы React. Вопрос «композиция или глобальный стор» решается в уроке 6.7 и в этом блоке не поднимается.
 
 **Prerequisites:** 01 (references, closures, immutability), 02.
 
@@ -610,6 +612,8 @@ Case study — не урок, а разбор ситуации: контекст
 | типы (02) → типизация навигации (04) → типизация API-слоя (07, 08) → контракты нативных модулей (09) |
 | `unknown` и предикаты (02) → runtime-валидация на границе (02) → разбор ответа сервера (07) → контракт нативного модуля (09) |
 | closures (01) → ref как актуальное значение в колбэке (03) → измерения и `scrollTo` в списках (05) → императивные контракты нативных компонентов (09) |
+| типизация компонентов и хуков (02) → кастомные хуки (03) → композиция (03) → prop drilling без глобального стейта (06) → границы модулей (08) |
+| эффект как синхронизация с внешней системой (03) → подписки на `AppState` и `Dimensions` (04) → утечки памяти (05) → подписки на нативные события (09) |
 | concurrent features (03) → tearing и `useSyncExternalStore` (03) → выбор инструмента состояния (06) |
 | домен как типы и чистые функции (01, 02) → слои приложения (08) → тестируемость домена без моков (11) |
 | bridge (04) → TurboModules и JSI (04) → «нужен ли native layer» (08) → написание модуля (09) → миграция на New Architecture (12) |
@@ -820,7 +824,7 @@ threat  →  mitigation  →  limitations  →  trade-offs  →  decision
 
 ### Темы, которых нет в V-файлах и которые курс добавляет
 
-Блок 01 целиком в части 🟢-фундамента и `this` / execution context / GC · блок 02 в части `unknown` и предикатов, `satisfies`, `.d.ts` и module augmentation, runtime-валидации на границе и типобезопасности на границах · 03: фазы render/commit, Suspense, refs, `useSyncExternalStore` и tearing · 04: Shadow Tree и Yoga, **Accessibility in React Native**, navigation lifecycle · 05: методика investigation, производительность навигации · 06: граница клиентского стейта и кэша · 07: WebSocket и server events, retry/backoff, refresh-token при параллельных 401 · 08: слои domain/application/infrastructure и переносимость Clean Architecture, DI, ADR, монорепо, технический долг как решение · 09: permissions, нативные security-возможности, стоимость владения · 10: security через threat → mitigation → limitations → trade-offs → decision · 11: стратегия тестирования в продакшене · 12: threat modeling, system design сессии, техническое лидерство, capstone.
+Блок 01 целиком в части 🟢-фундамента и `this` / execution context / GC · блок 02 в части `unknown` и предикатов, `satisfies`, `.d.ts` и module augmentation, runtime-валидации на границе и типобезопасности на границах, типизации React/RN-компонентов и хуков · 03: фазы render/commit, lifecycle и StrictMode, «когда эффект не нужен», Suspense, refs, кастомные хуки, composition, `useSyncExternalStore` и tearing · 04: Shadow Tree и Yoga, **Accessibility in React Native**, navigation lifecycle · 05: методика investigation, производительность навигации · 06: граница клиентского стейта и кэша · 07: WebSocket и server events, retry/backoff, refresh-token при параллельных 401 · 08: слои domain/application/infrastructure и переносимость Clean Architecture, DI, ADR, монорепо, технический долг как решение · 09: permissions, нативные security-возможности, стоимость владения · 10: security через threat → mitigation → limitations → trade-offs → decision · 11: стратегия тестирования в продакшене · 12: threat modeling, system design сессии, техническое лидерство, capstone.
 
 ---
 
