@@ -4,7 +4,7 @@
 **Следующий блок:** [02 — TypeScript](../02-typescript/)
 **Уроков:** 24 — 11 🟢 · 11 🟡 · 2 🔴
 **Стадия проекта:** [RN Academy P1](../project/)
-**Статус:** детальный план готов, текст уроков не написан
+**Статус:** часть 1 (1.1–1.11) написана · часть 2 (1.12–1.24) — детальный план, текст не написан
 
 > Этот блок разработан первым и служит **эталонным шаблоном** для остальных одиннадцати. Если формат здесь работает, он масштабируется на блоки 02–12 без изменений. Шаблон: у каждого урока заполнены цель, prerequisites, содержание, RN relevance, типичные заблуждения, проверка понимания, практика, связи вперёд, вклад в RN Academy, материал из банка вопросов.
 
@@ -30,6 +30,25 @@
 ## Формат 🟡/🔴-уроков
 
 Шаблон из семи углов: что это · как работает · почему важно · где в React Native · типичные ошибки · trade-offs · связь с другими частями системы.
+
+## Написанные уроки
+
+Текст части 1 написан; у каждого урока своя папка с `README.md`, `theory.md` и `practice.md`. Планы уроков части 2 остаются ниже в этом файле — папки появятся вместе с текстом.
+
+| Урок | Тема | Текст |
+|---|---|---|
+| 1.1 | Variables и scope | [01-variables-and-scope](./01-variables-and-scope/) |
+| 1.2 | Data types и граница JS↔native | [02-data-types-and-the-js-native-boundary](./02-data-types-and-the-js-native-boundary/) |
+| 1.3 | Coercion и сравнения | [03-coercion-and-comparison](./03-coercion-and-comparison/) |
+| 1.4 | Objects: копирование и идентичность | [04-objects-copying-and-identity](./04-objects-copying-and-identity/) |
+| 1.5 | Arrays: порядок, идентичность, мутирующие методы | [05-arrays-order-identity-mutation](./05-arrays-order-identity-mutation/) |
+| 1.6 | Array methods: map / filter / reduce | [06-array-methods](./06-array-methods/) |
+| 1.7 | Destructuring | [07-destructuring](./07-destructuring/) |
+| 1.8 | Spread и rest | [08-spread-and-rest](./08-spread-and-rest/) |
+| 1.9 | Modern JS syntax | [09-modern-js-syntax](./09-modern-js-syntax/) |
+| 1.10 | Modules: ESM, CJS и как это видит Metro | [10-modules-esm-cjs-metro](./10-modules-esm-cjs-metro/) |
+| 1.11 | Error handling: try/catch и асинхронность | [11-error-handling](./11-error-handling/) |
+| 1.12–1.24 | Internals | план ниже, текст не написан |
 
 ---
 
