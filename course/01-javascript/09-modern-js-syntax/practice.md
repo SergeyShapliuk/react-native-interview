@@ -184,9 +184,15 @@ function SubscriptionScreen({ route, navigation }) {
   // решение: userId обязателен для экрана; его отсутствие — некорректный deep link,
   // а не пустое состояние. Решение принимается в экране: это его входной контракт
   const userId = route.params?.userId;
-  if (userId == null) return <ErrorState message="Некорректная ссылка" />;
 
-  const { data, error, isLoading, refetch } = useSubscription(userId);
+  // хук вызывается ДО любого раннего return: правила хуков требуют одинакового
+  // порядка вызовов на каждом рендере (3.5). Поэтому хук обязан принимать
+  // отсутствующий userId и в этом случае не делать запрос
+  const { data, error, isLoading, refetch } = useSubscription(userId, {
+    enabled: userId != null,
+  });
+
+  if (userId == null) return <ErrorState message="Некорректная ссылка" />;
 
   // решение: три состояния экрана различимы и обработаны явно
   if (isLoading) return <LoadingState />;

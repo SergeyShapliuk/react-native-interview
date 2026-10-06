@@ -22,7 +22,7 @@
 
 **Опирается на:** —
 
-**Готовит:** [1.14 Closures](../) · [1.15 Execution context и scope chain](../) · правила зависимостей хуков (3.5).
+**Готовит:** [1.14 Closures](../14-closures/) · [1.15 Execution context и scope chain](../15-execution-context-and-scope-chain/) · правила зависимостей хуков (3.5).
 
 **RN Academy (P1).** Задать соглашение по объявлению переменных в модулях домена: `const` по умолчанию.
 
