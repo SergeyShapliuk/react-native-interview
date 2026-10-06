@@ -5,7 +5,7 @@
 Это не путь Junior → Middle → Senior. Это путь **Experienced React Native Developer → Senior React Native Engineer**.
 
 > Полная архитектура курса — [COURSE_ARCHITECTURE.md](./COURSE_ARCHITECTURE.md).
-> Статус: архитектура зафиксирована. Написан целиком блок [01 — JavaScript](./01-javascript/): 24 урока; остальные блоки существуют на уровне детальных планов.
+> Статус: архитектура зафиксирована. Написаны целиком блоки [01 — JavaScript](./01-javascript/) (24 урока) и [02 — TypeScript](./02-typescript/) (14 уроков); остальные блоки существуют на уровне детальных планов.
 
 ---
 
