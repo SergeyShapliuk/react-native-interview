@@ -49,7 +49,7 @@ function Button({ title, ...rest }: ButtonProps) {
 
 Компонент объявил пропс, которого не поддерживает. Вызывающий передал `ref`, компилятор согласился, `buttonRef.current` остался `null` — и выяснится это в рантайме, при попытке вызвать метод узла.
 
-Правило выбора: если компонент не оборачивается в `forwardRef`, нужен вариант **без** `ref`. Если оборачивается — тоже нужен вариант без `ref`, потому что тип ref задаётся первым параметром `forwardRef`, а не наследуется из пропсов. `ComponentProps` остаётся для случаев, когда тип пропсов нужен целиком «как есть» — например, чтобы передать его дальше или построить от него `Pick`.
+Правило выбора: если компонент не пробрасывает ref, нужен вариант **без** `ref`. Если пробрасывает — тоже вариант без `ref`, а свой `ref` объявляется отдельно: в React 19 — полем `ref?: Ref<…>` в пропсах, в React 18 — первым параметром `forwardRef`. В обоих случаях тип ref — контракт вашего компонента, а не унаследованный. `ComponentProps` остаётся для случаев, когда тип пропсов нужен целиком «как есть» — например, чтобы передать его дальше или построить от него `Pick`.
 
 **Ответ «они взаимозаменяемы, разница стилистическая»** вскрывает ровно то заблуждение, которое даёт неработающий ref.
 
@@ -164,7 +164,7 @@ function useLessonProgress(lessonId: string) {
 
 1. Переписать `ButtonProps` так, чтобы пропсы `Pressable` не дублировались руками, а стиль принимал массив условных стилей. Отдельно решить, открывать ли наружу все пропсы `Pressable`, и обосновать решение.
 2. Типизировать `LessonList` так, чтобы тип элемента связывал `data`, `renderItem` и `keyExtractor`. Показать на примере, что перестало компилироваться.
-3. Объявить контракт `VideoPlayer`: тип handle, `forwardRef`, `useImperativeHandle`. Сказать, почему handle вынесен в именованный тип и что будет, если перепутать параметры `forwardRef`.
+3. Объявить контракт `VideoPlayer`: тип handle, `ref` в пропсах (React 19) или `forwardRef` (React 18), `useImperativeHandle`. Сказать, почему handle вынесен в именованный тип и что будет, если перепутать параметры `forwardRef`.
 4. Исправить возврат `useLessonProgress`. Выбрать форму — кортеж или объект — и обосновать выбор; сформулировать правило проекта для остальных хуков.
 
 ---
@@ -242,28 +242,29 @@ type VideoPlayerProps = {
   uri: string;
   onProgress?: (sec: number) => void;
   style?: StyleProp<ViewStyle>;
+  ref?: Ref<VideoPlayerHandle>;          // React 19 (RN 0.78+): ref — обычный пропс
 };
 
-export const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(
-  function VideoPlayer({ uri, onProgress, style }, ref) {
-    const inner = useRef<ElementRef<typeof NativePlayer>>(null);
+export function VideoPlayer({ uri, onProgress, style, ref }: VideoPlayerProps) {
+  const inner = useRef<ComponentRef<typeof NativePlayer>>(null);
 
-    useImperativeHandle(ref, () => ({
-      play: () => inner.current?.play(),
-      pause: () => inner.current?.pause(),
-      seek: (sec) => inner.current?.seekTo(sec),
-    }), []);
+  useImperativeHandle(ref, () => ({
+    play: () => inner.current?.play(),
+    pause: () => inner.current?.pause(),
+    seek: (sec) => inner.current?.seekTo(sec),
+  }), []);
 
-    return <NativePlayer ref={inner} source={{ uri }} style={style} onProgress={onProgress} />;
-  },
-);
+  return <NativePlayer ref={inner} source={{ uri }} style={style} onProgress={onProgress} />;
+}
 ```
+
+На React 18 и старше то же самое записывается через `forwardRef<VideoPlayerHandle, Omit<VideoPlayerProps, 'ref'>>(function VideoPlayer(props, ref) { ... })` — тело компонента не меняется.
 
 **Почему handle — именованный тип.** Это публичный API компонента, и он отличается от того, что компонент умеет внутри. Вызывающий получает три метода, а не весь нативный узел: внутренний `inner` остаётся деталью реализации, и замена нативной библиотеки не затронет вызывающих, пока три метода работают. Именованный тип при этом экспортируется — чтобы объявить `useRef<VideoPlayerHandle>(null)` на стороне экрана.
 
-**Если перепутать параметры** — `forwardRef<VideoPlayerProps, VideoPlayerHandle>` — объявление скомпилируется: оба параметра являются типами, и компилятору нечего возразить в этой строке. Ошибка возникнет **на стороне вызова**: `ref` будет ожидать объект с полями `uri` и `onProgress`, а пропсы — объект с методами. Сообщение укажет на экран, использующий компонент, а причина останется в его объявлении — классический случай, когда читать нужно не то место, на которое указал компилятор.
+**Если перепутать параметры `forwardRef`** (вариант для React 18) — `forwardRef<VideoPlayerProps, VideoPlayerHandle>` — сама строка объявления пройдёт: оба параметра являются типами. Но тело компонента сразу перестанет компилироваться: деструктуризация `{ uri, onProgress, style }` наткнётся на тип handle, где таких полей нет, а `useImperativeHandle` потребует вернуть объект с полями пропсов (проверено `tsc`). Сообщения говорят о недостающих полях, а не о порядке параметров, — поэтому причину ищут не там. В варианте React 19 перепутать нечего: тип `ref` записан рядом с остальными пропсами.
 
-Внутренний ref типизирован `ElementRef<typeof NativePlayer>`, а не описан руками: описание из одного метода скомпилируется и лишит доступа ко всем остальным, а при обновлении библиотеки устареет молча (2.9).
+Внутренний ref типизирован `ComponentRef<typeof NativePlayer>` (в старом коде — `ElementRef`, прежнее имя той же утилиты), а не описан руками: описание из одного метода скомпилируется и лишит доступа ко всем остальным, а при обновлении библиотеки устареет молча (2.9).
 
 **4. `useLessonProgress`.**
 

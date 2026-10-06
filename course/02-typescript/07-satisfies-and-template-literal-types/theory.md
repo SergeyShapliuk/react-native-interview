@@ -93,11 +93,15 @@ const routes = {
 type ColorName = 'primary' | 'surface' | 'danger';
 const base = { primary: '#1', surface: '#2', danger: '#3', sufrace: '#4' };
 
-const a = base as Record<ColorName, string>;                // ошибки нет
-const b = { ...base } satisfies Record<ColorName, string>;  // ошибка: 'sufrace' does not exist
+const a = base as Record<ColorName, string>;   // ошибки нет
+const b = {
+  primary: '#1', surface: '#2', danger: '#3', sufrace: '#4',
+} satisfies Record<ColorName, string>;           // ошибка: 'sufrace' does not exist
 ```
 
 `as` молчит, потому что утверждение о типе требует лишь совместимости, а объект с лишним полем совместим с типом без него. По той же причине `as` пропускает **недостающий** ключ: `{ primary: '#1' } as Record<ColorName, string>` компилируется, и `a.danger` имеет тип `string` при `undefined`.
+
+Важная граница самой проверки лишних свойств: она работает только для свойств, **написанных в литерале прямо**. Свойства, пришедшие через spread или из готовой переменной, не проверяются — `{ ...base } satisfies Record<ColorName, string>` и `base satisfies ...` компилируются без ошибки, хотя `sufrace` там есть (проверено `tsc`). Поэтому `satisfies` ставят на сам литерал, в месте его объявления, а не на копию.
 
 Лишнее поле видно тогда, когда у целевого типа **конечный набор ключей**. У `Record<string, Route>` индексная подпись, и проверка работает уровнем глубже — внутри значения (`pathh` лишний в `Route`).
 

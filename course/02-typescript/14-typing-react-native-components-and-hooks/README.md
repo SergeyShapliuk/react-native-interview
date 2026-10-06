@@ -18,7 +18,7 @@
 
 ## Что внутри
 
-Тип пропсов отдельным именованным типом и почему не `React.FC` · `ComponentProps` против `ComponentPropsWithoutRef` и к какой молчаливой поломке ведёт неверный выбор · `PropsWithChildren` против явного `children: ReactNode` · generic-компонент: как связать тип элемента с `renderItem` и `keyExtractor` · `forwardRef` и контракт `useImperativeHandle` как публичный API компонента; `ElementRef` вместо ручного описания ref · `StyleProp<ViewStyle>` и почему тип стиля — не `object` и не `ViewStyle` · возврат кастомного хука: кортеж с `as const` против объекта · trade-offs: выведенные пропсы против узкого контракта дизайн-системы, точность generic против читаемости, строгий `children` против совместимости.
+Тип пропсов отдельным именованным типом и почему не `React.FC` · `ComponentProps` против `ComponentPropsWithoutRef` и к какой молчаливой поломке ведёт неверный выбор · `PropsWithChildren` против явного `children: ReactNode` · generic-компонент: как связать тип элемента с `renderItem` и `keyExtractor` · `ref` как обычный пропс в React 19 (RN 0.78+) и `forwardRef` для React 18 и старого кода; контракт `useImperativeHandle` как публичный API компонента; `ComponentRef` вместо ручного описания ref · `StyleProp<ViewStyle>` и почему тип стиля — не `object` и не `ViewStyle` · возврат кастомного хука: кортеж с `as const` против объекта · trade-offs: выведенные пропсы против узкого контракта дизайн-системы, точность generic против читаемости, строгий `children` против совместимости.
 
 ## Ключевая формулировка урока
 
