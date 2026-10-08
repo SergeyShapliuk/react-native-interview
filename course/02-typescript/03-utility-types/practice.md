@@ -132,8 +132,10 @@ type LessonTitles = { [screen: string]: string };
 ```ts
 type LessonListItem = Pick<Lesson, 'id' | 'title' | 'durationMin'>;
 
+type StrictOmit<T, K extends keyof T> = Omit<T, K>;   // Omit, проверяющий имена ключей
+
 type ServerOwned = 'id' | 'completedAt';
-type CreateLessonBody = Omit<Lesson, ServerOwned>;
+type CreateLessonBody = StrictOmit<Lesson, ServerOwned>;
 ```
 
 `Pick` для элемента списка: полей мало, они перечислены явно, и при переименовании `durationMin` в модели этот тип **перестанет компилироваться** — компилятор покажет точку правки.
@@ -145,7 +147,7 @@ type CreateLessonBody = Omit<Lesson, ServerOwned>;
 **2. Состояние формы.**
 
 ```ts
-type LessonFormState = Omit<Lesson, ServerOwned | 'order'>;
+type LessonFormState = StrictOmit<Lesson, ServerOwned | 'order'>;
 ```
 
 или, если полей для формы заметно меньше, — `Pick` с явным перечислением.

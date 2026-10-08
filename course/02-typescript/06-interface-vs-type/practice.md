@@ -182,16 +182,22 @@ export interface AppTheme { /* ... */ }
 
 ```ts
 // src/domain/progress/theme.d.ts
+export {};   // файл обязан быть модулем, иначе это не дополнение (см. ниже)
+
 declare module '../../ui/theme/types' {
   interface AppTheme { accentProgress: string }
 }
 ```
+
+Строка `export {}` не формальность. Без неё файл — скрипт, и `declare module` с относительным путём в скрипте запрещён: компилятор ответит «Ambient module declaration cannot specify relative module name», а `accentProgress` у темы не появится (проверено `tsc`). Правило «файл дополнения обязан быть модулем» подробно разобрано в 2.9.
 
 После этого `useTheme().accentProgress` типизирован во всём проекте, и `AppTheme` по-прежнему **одно** имя.
 
 Та же попытка для типа, объявленного через `type`, не проходит — это главный результат эксперимента:
 
 ```ts
+export {};
+
 declare module '../../ui/theme/types' {
   type AppTheme = { accentProgress: string };
   // Duplicate identifier 'AppTheme'

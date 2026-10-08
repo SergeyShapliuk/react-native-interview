@@ -222,7 +222,7 @@ export function summarize(lessons: Lesson[], progress: Progress) {
 - `const total: number = lessons.length` и `const done: number = ...` — `number` выводится;
 - `const next: string[] = [...progress.completed, lessonId]` — выводится `string[]`;
 - `(l: Lesson) => ...` в колбэке `filter` — тип параметра приходит контекстно из `Lesson[]`, ручная аннотация дублирует его и расходится с ним при смене типа массива;
-- `const states: Record<string, string> = LESSON_STATES` — ухудшение: стирает и ключи, и литеральные значения, после чего `LESSON_STATES.don` компилируется.
+- `const states: Record<string, string> = LESSON_STATES` — ухудшение: стирает и ключи, и литеральные значения, после чего `states.don` компилируется (у самого `LESSON_STATES` опечатка по-прежнему ловится — потеря происходит именно в аннотированной переменной).
 
 Признак для проверки: удалить аннотацию и посмотреть выведенный тип. Если он совпал — аннотация была шумом, если стал точнее — вредила, если код перестал компилироваться — аннотация несла информацию и остаётся.
 
