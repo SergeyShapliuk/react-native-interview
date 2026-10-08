@@ -30,17 +30,17 @@ Three independent, parallel documents — **not** a versioned progression where 
 
 ## Course (`course/`)
 
-`course/COURSE_ARCHITECTURE.md` is the authoritative design document — read it before touching anything under `course/`. It fixes the 12 blocks, the dependency graph, checkpoints, cross-cutting concerns, the Security Map, the Testing Progression and the Migration Map. `course/README.md` is the public-facing entry point. Lesson text is not written yet; each `NN-*/README.md` holds that block's plan.
+`course/COURSE_ARCHITECTURE.md` is the authoritative design document — read it before touching anything under `course/`. It fixes the 12 blocks, the dependency graph, checkpoints, cross-cutting concerns, the Security Map, the Testing Progression and the Migration Map. `course/README.md` is the public-facing entry point. Lesson text is written for blocks 01 and 02 (each lesson has its own folder with `README.md`, `theory.md`, `practice.md`); a lesson folder appears only together with its text. Every `NN-*/README.md` holds that block's plan, which stays the source of truth for lessons not yet written.
 
 Rules that are easy to break:
 
 - **Lesson levels are 🟢 REFRESH / 🟡 DEEP DIVE / 🔴 SENIOR.** 🟢 lessons follow a fixed shape: short refresh → comprehension check → **RN relevance** (the last part is mandatory; without it a 🟢 lesson degrades into a beginner tutorial). 🟡/🔴 lessons follow the seven angles listed in architecture section 6. Do not make every lesson 🔴.
-- **`course/01-javascript/README.md` is the reference implementation of the block format** (24 lessons, 12 fields each). When detailing blocks 02–12, copy that structure rather than inventing a new one.
+- **`course/01-javascript/README.md` is the reference implementation of the block format** (25 lessons, 12 fields each; 1.25 was added later and is still a plan). When detailing blocks 02–12, copy that structure rather than inventing a new one.
 - **`V1.md` / `V2.md` / `V3.md` are not edited** until the corresponding lesson text is actually written. The Migration Map is an architectural map only (`вопрос → блок → формат`). When migration does happen later, the source file keeps the question plus a reference to the lesson — files are never emptied or left ragged.
 - **Do not mix formats.** The question bank uses `### В:` / `**О:**` (V1, V2) or a bold question line (V3). Course material uses lesson tables and the per-lesson field template. Never carry one format into the other.
 - Material deliberately appears in exactly one block; several blocks carry explicit "не дублировать" notes (navigation performance belongs to 05, push/server events to 07, cache mechanics to 07, reducers/selectors to 06). Respect them instead of repeating content.
 - Security practices are never presented as a mandatory checklist — they follow `threat → mitigation → limitations → trade-offs → decision`.
-- Lesson counts are a guide, not a contract: "approximately 100–140 lessons, subject to refinement during detailed curriculum design."
+- Lesson counts are a guide, not a contract: the block plans currently add up to 173 lessons, a soft target recounted from the block tables. Lessons added after a block is written take the next free number (e.g. 1.25, 2.15, 2.16) instead of renumbering, and the block README states where they belong in the learning order.
 
 ## Git
 
