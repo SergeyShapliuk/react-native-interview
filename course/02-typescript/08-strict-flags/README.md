@@ -3,7 +3,7 @@
 **Блок:** [02 — TypeScript for Experienced Developers](../)
 **Уровень:** 🟡 DEEP DIVE
 **Prerequisites:** [2.1 Базовые типы и вывод типов](../01-basic-types-and-inference/), [2.4 `unknown` vs `any`, type guards, assertion functions](../04-unknown-type-guards-assertions/)
-**Следующий урок:** [2.9 `.d.ts`, module augmentation, нетипизированные библиотеки](../09-declaration-files-and-module-augmentation/)
+**Следующий урок:** [2.15 TypeScript в сборке RN](../15-typescript-in-the-rn-build/) (добавлен позже, проходится здесь), затем [2.9 `.d.ts`, module augmentation, нетипизированные библиотеки](../09-declaration-files-and-module-augmentation/)
 
 > 🟡-урок: разбор по семи углам — что это · как работает · почему важно · где в React Native · типичные ошибки · trade-offs · связи с другими частями системы.
 

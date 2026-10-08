@@ -35,7 +35,7 @@ Three independent, parallel documents — **not** a versioned progression where 
 Rules that are easy to break:
 
 - **Lesson levels are 🟢 REFRESH / 🟡 DEEP DIVE / 🔴 SENIOR.** 🟢 lessons follow a fixed shape: short refresh → comprehension check → **RN relevance** (the last part is mandatory; without it a 🟢 lesson degrades into a beginner tutorial). 🟡/🔴 lessons follow the seven angles listed in architecture section 6. Do not make every lesson 🔴.
-- **`course/01-javascript/README.md` is the reference implementation of the block format** (25 lessons, 12 fields each; 1.25 was added later and is still a plan). When detailing blocks 02–12, copy that structure rather than inventing a new one.
+- **`course/01-javascript/README.md` is the reference implementation of the block format** (25 lessons, 12 fields each; 1.25 was added later and is taken after 1.3). When detailing blocks 02–12, copy that structure rather than inventing a new one.
 - **`V1.md` / `V2.md` / `V3.md` are not edited** until the corresponding lesson text is actually written. The Migration Map is an architectural map only (`вопрос → блок → формат`). When migration does happen later, the source file keeps the question plus a reference to the lesson — files are never emptied or left ragged.
 - **Do not mix formats.** The question bank uses `### В:` / `**О:**` (V1, V2) or a bold question line (V3). Course material uses lesson tables and the per-lesson field template. Never carry one format into the other.
 - Material deliberately appears in exactly one block; several blocks carry explicit "не дублировать" notes (navigation performance belongs to 05, push/server events to 07, cache mechanics to 07, reducers/selectors to 06). Respect them instead of repeating content.

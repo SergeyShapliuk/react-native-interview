@@ -3,7 +3,7 @@
 **Блок:** [01 — JavaScript Refresh & Internals](../)
 **Уровень:** 🟢 REFRESH
 **Prerequisites:** [1.2 Data types](../02-data-types-and-the-js-native-boundary/)
-**Следующий урок:** [1.4 Objects: копирование и идентичность](../04-objects-copying-and-identity/)
+**Следующий урок:** [1.25 Числа, даты и строки на устройстве](../25-numbers-dates-and-strings/) (добавлен позже, проходится здесь), затем [1.4 Objects: копирование и идентичность](../04-objects-copying-and-identity/)
 
 ## Цель
 

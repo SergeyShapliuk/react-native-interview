@@ -3,7 +3,7 @@
 **Блок:** [02 — TypeScript for Experienced Developers](../)
 **Уровень:** 🔴 SENIOR
 **Prerequisites:** [2.4 `unknown` vs `any`, type guards, assertion functions](../04-unknown-type-guards-assertions/), [2.11 Типизация полиморфного API-слоя](../11-typing-polymorphic-api-layer/)
-**Следующий урок:** [2.13 Типобезопасность на границах системы](../13-type-safety-at-system-boundaries/)
+**Следующий урок:** [2.16 Брендированные типы](../16-branded-types/) (добавлен позже, проходится здесь), затем [2.13 Типобезопасность на границах системы](../13-type-safety-at-system-boundaries/)
 
 > 🔴-урок: разбор по семи углам, с решением при неполных данных. Решение урока — что считать невалидным и чем за проверку платить.
 
