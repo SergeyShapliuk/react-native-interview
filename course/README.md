@@ -85,8 +85,8 @@
 | [01](./01-javascript/) | JavaScript Refresh & Internals | фундамент языка: от 🟢 refresh до references, closures, event loop, memory, GC |
 | [02](./02-typescript/) | TypeScript for Experienced Developers | типы как инструмент проектирования, типобезопасность на границах системы |
 | [03](./03-react/) | React Deep Dive | Fiber, фазы рендера, referential equality, мемоизация, Context, React Compiler |
-| [04](./04-react-native/) | React Native Core, Internals & Application | bridge и New Architecture как другая модель, Hermes как движок и выбор движка, Metro, навигация, accessibility |
-| [05](./05-performance/) | Performance | три потока, бюджет кадра, списки, изображения, профилирование, методика investigation |
+| [04](./04-react-native/) | React Native Core, Internals & Application | New Architecture как другая модель и legacy-мост как контекст, Hermes и почему движок имеет значение, Metro, навигация, accessibility |
+| [05](./05-performance/) | Performance | модель исполнения (JS, UI и нативная работа — без фиксированного числа потоков), бюджет кадра, списки, изображения, профилирование, методика investigation |
 | [06](./06-state-and-data/) | State Management & Data | клиентское состояние: выбор инструмента, селекторы, нормализация, персистентность, граница с серверным состоянием |
 | [07](./07-networking/) | Networking & Distributed Data | server state как распределённые данные, API, auth, кэш, WebSocket, offline-first, конфликты |
 | [08](./08-architecture/) | Architecture | границы модулей, feature-based, DI, ADR, технический долг, «нужен ли native layer» |

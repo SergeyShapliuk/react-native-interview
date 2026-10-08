@@ -3,7 +3,7 @@
 **Курс:** React Native Developer — From Experienced Developer to Senior
 **Статус:** архитектура зафиксирована · блоки 01 и 02 написаны (25 и 16 уроков; 1.25, 2.15, 2.16 добавлены после проверки под следующими свободными номерами) · остальные уроки на уровне планов блоков
 **Язык материалов:** русский, технические термины латиницей
-**Объём:** 164 урока в текущих планах блоков плюс capstone. Число — следствие содержания, а не план: это soft target, который пересчитывается при детализации блоков.
+**Объём:** 173 урока в текущих планах блоков плюс capstone. Число — следствие содержания, а не план: это soft target, который пересчитывается при детализации блоков.
 
 ---
 
@@ -197,7 +197,7 @@
 | Тема | RN relevance (пример акцента) |
 |---|---|
 | variables и scope | почему `var` в старом коде ломает замыкания в циклах |
-| data types | что реально переходит через bridge и почему только сериализуемое |
+| data types | какие значения переходят границу JS↔native и почему не все |
 | coercion и сравнения | `==` в условиях рендера, falsy `0` в `{count && <View/>}` |
 | objects | shallow copy и почему `setState` «не сработал» |
 | arrays | идентичность массива как источник ре-рендера списка |
@@ -236,7 +236,7 @@ references · immutability · closures · execution context · `this` · prototy
 
 **Цель:** понять, что React делает между вызовом `setState` и появлением пикселя, и научиться на это влиять осознанно.
 
-🟡 reconciliation и Fiber · роль `key` · **путь обновления: setState → update queue → batching → scheduling → render → commit** · **lifecycle компонента и StrictMode** · правила хуков и зависимостей · `useEffect` vs `useLayoutEffect` · **когда эффект не нужен** · **`useState` vs `useReducer`** · **refs: `useRef` / `forwardRef` / `useImperativeHandle`** · referential equality · `memo` / `useMemo` / `useCallback` · **кастомные хуки как единица переиспользования** · **composition: `children`, render props, compound components** · Context и его цена, паттерны дробления · controlled vs uncontrolled · Error Boundaries
+🟡 reconciliation и Fiber · роль `key` · **путь обновления: setState → update queue → batching → scheduling → render → commit** · **lifecycle компонента и StrictMode** · правила хуков и зависимостей · `useEffect` vs `useLayoutEffect` · **когда эффект не нужен** · **`useState` vs `useReducer`** · **refs: `useRef` / ref как пропс / `useImperativeHandle`** · referential equality · `memo` / `useMemo` / `useCallback` · **кастомные хуки как единица переиспользования** · **composition: `children`, render props, compound components** · Context и его цена, паттерны дробления · controlled vs uncontrolled · Error Boundaries
 🔴 Suspense и concurrent features · React Compiler: что он убирает и где ручная мемоизация всё ещё нужна · **`useSyncExternalStore` и tearing**
 
 > **Урок про путь обновления — переходный урок курса JavaScript → React → React Native.** Он отвечает на вопрос, почему вызов `setState` не означает немедленный рендер: обновление попадает в очередь, несколько обновлений батчатся в один рендер, React планирует работу и может её прервать, render-фаза чистая и прерываемая, commit-фаза синхронная. Опирается на очереди задач и микротасков из блока 01 и на reconciliation; готовит блок 05, где «лишний рендер» и «долгий commit» — разные проблемы с разными инструментами.
@@ -257,18 +257,18 @@ references · immutability · closures · execution context · `this` · prototy
 🟡 Shadow Tree и Yoga · Metro: resolver, граф модулей, бандл · **Hermes как JS engine** (bytecode и precompilation, GC движка, profiling, startup/TTI) · **build types: Debug → Debug Optimized → Release**
 🔴 **Почему движок имеет значение; JSC как edge case**
 
-> **New Architecture — современная архитектура React Native, а не один из двух равнозначных вариантов.** Для нового проекта выбора между Legacy и New Architecture нет, поэтому урок про актуальное устройство идёт первым, а legacy — вторым, как контекст.
+> **New Architecture — современная архитектура React Native, а не один из двух равнозначных вариантов.** С RN 0.82 Legacy Architecture удалена и выключить New Architecture нельзя, поэтому урок про актуальное устройство идёт первым, а legacy — вторым, как контекст для чтения старого кода.
 >
 > **Не «Bridge 2.0».** Нельзя оставлять модель «был старый мост, стал новый мост». JSI — прямой интерфейс между JS и native, допускающий синхронные вызовы и работу с нативными объектами по ссылке; Fabric — другой рендер-пайплайн с другим владением Shadow Tree; TurboModules — другой контракт модулей с ленивой инициализацией. Обязательный подраздел: «какие интуиции из старой модели здесь не работают» («любой вызов в native асинхронен», «данные всегда сериализуются в JSON», «UI обновляется только из конца очереди»).
 >
 > **Legacy-урок** разбирает модель JS↔native взаимодействия той архитектуры: передачу аргументов и результатов, callbacks и events, сериализацию и конвертацию данных **как свойство той модели, а не как определение Bridge**, и её ограничения — из которых и выросли JSI, Fabric и TurboModules.
 >
-> **Hermes — основной движок современного RN**, JSC — специальный/legacy/edge case, а не равнозначная альтернатива. Поэтому второй Hermes-урок отвечает не на «что выбрать», а на «почему движок вообще имеет значение»: startup, память, bytecode вместо парсинга на устройстве, отладка, совместимость, профиль производительности.
+> **Hermes — основной движок современного RN**, JSC — специальный/legacy/edge case, а не равнозначная альтернатива (с RN 0.80 он вынесен из ядра в пакет сообщества; с 0.84 по умолчанию работает Hermes V1). Поэтому второй Hermes-урок отвечает не на «что выбрать», а на «почему движок вообще имеет значение»: startup, память, bytecode вместо парсинга на устройстве, отладка, совместимость, профиль производительности.
 >
-> **Build types.** `Debug → Debug Optimized → Release`. Обычная Debug-сборка даёт искажённое представление о производительности (dev-проверки, отсутствие оптимизаций, инструментирование), Release плохо подходит для отладки; Debug Optimized — промежуточный тип, сохраняющий отладку без основных искажений.
+> **Build types.** `Debug → Debug Optimized → Release`. Обычная Debug-сборка даёт искажённое представление о производительности (dev-проверки, отсутствие оптимизаций, инструментирование), Release плохо подходит для отладки; Debug Optimized (RN 0.81+, пока только Android) собирает нативный C++ с оптимизациями и сохраняет JS-отладку, но JS остаётся в dev-режиме — искажения нативной части он убирает, искажения JS нет.
 
 **Application**
-🟢 Expo managed vs bare workflow · `Platform.OS` и платформенные файлы
+🟢 Expo: Continuous Native Generation и нативные папки в репозитории (деление на managed и bare Expo больше не использует) · `Platform.OS` и платформенные файлы
 🟡 стилизация и её нативная проекция · **Accessibility in React Native** (semantics, accessibility props, VoiceOver, TalkBack, focus management, dynamic type, accessibility testing) · `patch-package` и стратегия апгрейдов RN
 
 **Navigation** (внутри этого блока, отдельного блока Navigation в курсе нет)
@@ -350,7 +350,7 @@ references · immutability · closures · execution context · `this` · prototy
 **Цель:** довести приложение до пользователя и узнать о проблеме раньше, чем о ней напишут в отзывах.
 
 🟡 схемы сборки и подпись · версионирование (версия приложения, build number, версия бандла) · Fastlane / EAS Build · CI-пайплайн · OTA-обновления: что они дают и где заканчиваются · Sentry / Crashlytics и symbolication · JS-краш vs нативный краш · метрики и алертинг
-🔴 **совместимость JS-бандла и нативного бинарника** · staged rollout, canary, критерий и механика откатa · production security: threat → mitigation → limitations → trade-offs → decision для secure storage, certificate pinning, secrets, obfuscation, app hardening
+🔴 **совместимость JS-бандла и нативного бинарника** · staged rollout, canary, критерий и механика отката · production security: threat → mitigation → limitations → trade-offs → decision для secure storage, certificate pinning, secrets, obfuscation, app hardening
 
 > **Совместимость — отдельный 🔴-урок, а не примечание к OTA.** OTA обновляет JS и assets, но **не произвольный нативный код**, и это одна из реально болезненных production-проблем RN.
 >
@@ -571,12 +571,12 @@ Checkpoint проверяет не запоминание терминов, а �
 
 | Тип | Что тренирует | Где появляется |
 |---|---|---|
-| **Debugging exercises** | методика поиска причины, а не угадывание | с 03, плотно в 05, 09, 10 |
-| **Performance exercises** | «симптом → слой → замер → гипотеза» | 05, возвраты в 06, 07 |
-| **Architecture case studies** | решение в условиях неполных данных | 08, 09, 12 |
-| **Code review exercises** | видеть последствия, а не стиль | 03, 08, 11, 12 |
-| **Refactoring exercises** | изменение без остановки разработки | 06, 08, 12 |
-| **System design exercises** | проектирование и защита решения | 12 |
+| **Debugging exercises** | методика поиска причины, а не угадывание | 03, 04, 05, 09, 10 |
+| **Performance exercises** | «симптом → слой → замер → гипотеза» | 05, возврат в 06 |
+| **Architecture case studies** | решение в условиях неполных данных | 04, 08, 10 |
+| **Code review exercises** | видеть последствия, а не стиль | 03, 04, 07, 08, 11, 12 |
+| **Refactoring exercises** | изменение без остановки разработки | 03, 06, 08, 11 |
+| **System design exercises** | проектирование и защита решения | 07, 08, 12 |
 
 ---
 
@@ -631,7 +631,7 @@ Case study — не урок, а разбор ситуации: контекст
 | **Security** | 07 — authentication, authorization, access/refresh token, session management | 09 — platform permissions, нативные security-возможности · 10 — secure storage, certificate pinning, secrets, obfuscation, app hardening | 12 — threat modeling, security architecture, security trade-offs |
 | **Testing** | P1 проекта — базовый unit test | P2–P7 по стадиям проекта · 11 — систематическая стратегия | 11 — тестовая пирамида, CI gate · 12 — тестирование в продакшене |
 | **Performance** | 01 — references, memory · 03 — ре-рендеры | 05 — блок целиком · 06 — цена селекторов · 07 — цена кэша | 05 — профилирование и методика · 12 — performance investigation в инциденте |
-| **Debugging** | 03 — React DevTools · 04 — Hermes debugger, Flipper | 05 — профайлеры · 09 — нативные логи, Xcode / Android Studio | 12 — investigation от симптома к root cause |
+| **Debugging** | 03 — React DevTools · 04 — React Native DevTools, нативные логи (Flipper — только как legacy-контекст) | 05 — профайлеры · 09 — нативные логи, Xcode / Android Studio | 12 — investigation от симптома к root cause |
 | **Observability** | 05 — измерять, а не угадывать | 10 — Sentry / Crashlytics, symbolication, метрики | 12 — алертинг, SLO, postmortem |
 | **Accessibility** | 04 — урок «Accessibility in React Native» | 08 — accessibility как архитектурное требование, вместе с i18n и RTL | 11 — accessibility testing в стратегии · 12 — audit и приоритизация |
 | **Error Handling** | 01 — 🟢 error handling · 03 — Error Boundaries | 07 — сетевые ошибки, retry, частичные сбои | 10 — crash reporting · 12 — postmortem, blast radius |
@@ -707,7 +707,7 @@ threat  →  mitigation  →  limitations  →  trade-offs  →  decision
 | `senior case` | Senior Case Study: контекст, решение, последствия |
 | `exercise` | практическое задание |
 | `code review` | code review exercise |
-| `system design` | система design упражнение или сессия |
+| `system design` | system design упражнение или сессия |
 | `reference` | материал остаётся в V-файле как справка, отдельного урока под него не будет |
 
 Комбинации допустимы (`lesson + exercise`).
@@ -857,7 +857,7 @@ course/NN-block/XX-topic/
 
 `XX` — номер урока внутри блока, `topic` — kebab-case латиницей, как у папок блоков (`06-state-and-data`). План блока остаётся в его `README.md` и является единственным источником истины до того, как текст написан.
 
-**Папка урока создаётся только тогда, когда текст урока реально написан.** Репозиторий не заполняется пустыми каркасами: 164 папки с заглушками пришлось бы поддерживать в синхроне с планами блоков, и они создавали бы ложное впечатление готовности. Отсутствие папки означает ровно одно — урок ещё не написан.
+**Папка урока создаётся только тогда, когда текст урока реально написан.** Репозиторий не заполняется пустыми каркасами: 173 папки с заглушками пришлось бы поддерживать в синхроне с планами блоков, и они создавали бы ложное впечатление готовности. Отсутствие папки означает ровно одно — урок ещё не написан.
 
 **3. Формат проверки понимания в 🟢-уроках — в `practice.md`, вместе с разбором.**
 
