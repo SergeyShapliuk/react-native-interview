@@ -326,7 +326,7 @@ references · immutability · closures · execution context · `this` · prototy
 **Цель:** перейти от «как сделать фичу» к «как сделать так, чтобы сотая фича стоила столько же, сколько десятая».
 
 🟡 layer-based vs feature-based · границы модулей и правила зависимостей · **слои приложения: domain / application / infrastructure** · DI и инверсия зависимостей · API-слой под смену backend contract · path aliases и их синхронизация (TS / Babel / Jest / Metro) · миграция JS → TS в живом проекте · i18n и RTL · accessibility как архитектурное требование · feature flags и поэтапный rollout · ADR как инструмент решения
-🔴 технический долг как инженерное решение, а не как моральная категория · монорепо и shared-код · **нужен ли проекту native layer** — критерии, стоимость владения, альтернативы (вход в блок 09)
+🔴 технический долг в коде и структуре проекта, а не как моральная категория: где он живёт, как измерить проценты, как гасить по ходу работы (решение о займе и разговор с бизнесом — 12.A) · монорепо и shared-код · **нужен ли проекту native layer** — критерии, стоимость владения, альтернативы (вход в блок 09)
 
 > **Слои — отдельный урок, и SOLID внутри него — инструмент, а не тема.** 8.1 отвечает «как разложить файлы», 8.2 — «кто кого имеет право импортировать», а урок про слои — «куда положить правило, которое не принадлежит ни экрану, ни серверу». Clean Architecture, MVVM и MVC разбираются как источники идей с разбором того, что из них переносимо в RN, а что остаётся церемонией из другого контекста; ось урока — цена слоя, а не канон. Отдельного урока по пяти принципам SOLID в курсе нет сознательно: SRP и ISP работают как критерий в 8.2, direction of dependencies — в уроке слоёв, DIP — собственно тема 8.4.
 
@@ -389,7 +389,7 @@ references · immutability · closures · execution context · `this` · prototy
 
 ```
 12 Senior Engineering
-    ├── Technical decisions      — trade-offs, ADR, технический долг, выбор между альтернативами
+    ├── Technical decisions      — trade-offs, технический долг как решение, выбор между альтернативами
     ├── Production incidents     — investigation, postmortem, blast radius, алертинг
     ├── System Design            — проектирование и защита решения, threat modeling, scalability
     └── Technical Leadership     — code review как инструмент, обоснование решений перед командой и бизнесом
@@ -399,7 +399,7 @@ references · immutability · closures · execution context · `this` · prototy
 
 **12.A Technical decisions**
 🟡 стратегии рефакторинга без остановки разработки
-🔴 технический долг: когда платить, когда занимать · выбор между альтернативами при неполных данных · миграция на New Architecture как senior case (аудит зависимостей, этапы, риски, критерий отката)
+🔴 технический долг как решение команды и бизнеса: когда занимать осознанно, когда требовать погашения, внешние дедлайны мобильного проекта (измерение долга в коде — 08) · выбор между альтернативами при неполных данных · миграция на New Architecture как senior case (аудит зависимостей, этапы, риски, критерий отката)
 
 **12.B Production incidents**
 🔴 investigation: от алерта к root cause · performance investigation в инциденте · blast radius и приоритизация · postmortem, по которому можно принять решение
@@ -410,7 +410,7 @@ references · immutability · closures · execution context · `this` · prototy
 
 **12.D Technical Leadership**
 🟡 code review как инструмент развития команды, а не контроля
-🔴 как обосновывать решение перед командой и бизнесом · как документировать решение так, чтобы оно жило без автора
+🔴 как обосновывать решение перед командой и бизнесом · как документировать решение так, чтобы оно жило без автора (RFC и design doc; ADR — 08)
 
 **Capstone** — сквозная задача: спроектировать, защитить решение через trade-offs, описать риски и план отката.
 
@@ -619,6 +619,7 @@ Case study — не урок, а разбор ситуации: контекст
 | concurrent features (03) → tearing и `useSyncExternalStore` (03) → выбор инструмента состояния (06) |
 | домен как типы и чистые функции (01, 02) → слои приложения (08) → тестируемость домена без моков (11) |
 | bridge (04) → TurboModules и JSI (04) → «нужен ли native layer» (08) → написание модуля (09) → миграция на New Architecture (12) |
+| `patch-package` и апгрейды RN (04) → технический долг в коде и его проценты (08) → решение о займе и погашении долга (12) |
 
 ---
 
@@ -826,7 +827,7 @@ threat  →  mitigation  →  limitations  →  trade-offs  →  decision
 
 ### Темы, которых нет в V-файлах и которые курс добавляет
 
-Блок 01 целиком в части 🟢-фундамента и `this` / execution context / GC · блок 01 в части чисел, дат и строк на устройстве (1.25) · блок 02 в части `unknown` и предикатов, `satisfies`, `.d.ts` и module augmentation, runtime-валидации на границе и типобезопасности на границах, типизации React/RN-компонентов и хуков, TypeScript в сборке RN (2.15) и брендированных типов (2.16) · 09: спецификация модуля и Codegen · 03: фазы render/commit, lifecycle и StrictMode, «когда эффект не нужен», Suspense, refs, кастомные хуки, composition, `useSyncExternalStore` и tearing · 04: Shadow Tree и Yoga, **Accessibility in React Native**, navigation lifecycle · 05: методика investigation, производительность навигации · 06: граница клиентского стейта и кэша · 07: WebSocket и server events, retry/backoff, refresh-token при параллельных 401 · 08: слои domain/application/infrastructure и переносимость Clean Architecture, DI, ADR, монорепо, технический долг как решение · 09: permissions, нативные security-возможности, стоимость владения · 10: security через threat → mitigation → limitations → trade-offs → decision · 11: стратегия тестирования в продакшене · 12: threat modeling, system design сессии, техническое лидерство, capstone.
+Блок 01 целиком в части 🟢-фундамента и `this` / execution context / GC · блок 01 в части чисел, дат и строк на устройстве (1.25) · блок 02 в части `unknown` и предикатов, `satisfies`, `.d.ts` и module augmentation, runtime-валидации на границе и типобезопасности на границах, типизации React/RN-компонентов и хуков, TypeScript в сборке RN (2.15) и брендированных типов (2.16) · 09: спецификация модуля и Codegen · 03: фазы render/commit, lifecycle и StrictMode, «когда эффект не нужен», Suspense, refs, кастомные хуки, composition, `useSyncExternalStore` и tearing · 04: Shadow Tree и Yoga, **Accessibility in React Native**, navigation lifecycle · 05: методика investigation, производительность навигации · 06: граница клиентского стейта и кэша · 07: WebSocket и server events, retry/backoff, refresh-token при параллельных 401 · 08: слои domain/application/infrastructure и переносимость Clean Architecture, DI, ADR, монорепо, технический долг в коде и его проценты · 09: permissions, нативные security-возможности, стоимость владения · 10: security через threat → mitigation → limitations → trade-offs → decision · 11: стратегия тестирования в продакшене · 12: threat modeling, system design сессии, техническое лидерство, capstone.
 
 ---
 
