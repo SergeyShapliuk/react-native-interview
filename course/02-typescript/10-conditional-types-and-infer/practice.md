@@ -95,11 +95,13 @@ type S<T> = T extends `lesson_${infer X}` ? X : never;             // часть
 type Ret<T> = T extends { a(): infer X; b(): infer X } ? X : never;
 type U = Ret<{ a(): string; b(): number }>;      // string | number
 
-type Arg<T> = T extends { a(x: infer X): void; b(x: infer X): void } ? X : never;
-type I = Arg<{ a(x: string): void; b(x: number): void }>;   // string & number → never
+type Arg<T> = T extends { a: (x: infer X) => void; b: (x: infer X) => void } ? X : never;
+type I = Arg<{ a: (x: string) => void; b: (x: number) => void }>;   // string & number → never
 ```
 
 Второй результат — `never`, и это не поломка, а следствие того, что функция, принимающая и `string`, и `number` в одной позиции, должна принимать значение, являющееся и тем, и другим.
+
+Обратите внимание на запись: функции объявлены как **свойства** (`a: (x) => void`). Если записать их как **методы** (`a(x: infer X): void`), результат будет `string | number`, а не `never` (проверено `tsc`): параметры методов бивариантны — то самое исключение из `strictFunctionTypes`, разобранное в 2.8, — и кандидаты объединяются. Это хороший пример того, почему модель «ковариантно — union, контравариантно — пересечение» нужно проверять у компилятора, а не применять механически.
 
 Практическое правило: **одна переменная `infer` на одну позицию**; для разбора нескольких частей структуры объявляются разные переменные.
 
@@ -219,7 +221,9 @@ RootParamList['Lesson']                        → { lessonId: string }
 
 **3. Чтение сообщения.**
 
-Сообщение на `navigate('Lesson', { lessonId: 1 })` имеет такую структуру:
+Для объектного литерала, как в `navigate('Lesson', { lessonId: 1 })`, компилятор сам доводит ошибку до места причины и ставит её прямо на поле: `Type 'number' is not assignable to type 'string'` под `lessonId: 1`, с пояснением, что ожидаемый тип пришёл из свойства `lessonId` типа `{ lessonId: string }`. Читать здесь почти нечего — это удобный случай.
+
+Цепочка появляется, когда параметры переданы **переменной**: `const p = { lessonId: 1 }; navigate('Lesson', p)`. Тогда сообщение стоит на аргументе и имеет такую структуру (проверено `tsc`):
 
 ```
 Argument of type '{ lessonId: number; }' is not assignable to

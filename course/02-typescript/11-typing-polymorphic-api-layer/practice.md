@@ -191,14 +191,15 @@ const saved   = await request('POST /lessons/:lessonId/progress', {
 });
 ```
 
-Две ошибки, которых в исходном коде не было:
+Три ошибки, которых в исходном коде не было:
 
 ```ts
 await request('GET /lessons/:lessonId', { params: { lesson_id: '1' } });
 // Object literal may only specify known properties — 'lesson_id' нет в { lessonId: string }
 
 await request('POST /lessons/:lessonId/progress', { params: { lessonId } });
-// Property 'body' is missing
+// Argument ... is not assignable to parameter of type 'Config<"POST /lessons/:lessonId/progress">'
+// (в подробностях сообщения — отсутствует обязательное поле body)
 
 await request('GET /lessons/:id', { params: { id: '1' } });
 // Argument of type '"GET /lessons/:id"' is not assignable to parameter of type keyof Endpoints
