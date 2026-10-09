@@ -30,7 +30,7 @@ Three independent, parallel documents — **not** a versioned progression where 
 
 ## Course (`course/`)
 
-`course/COURSE_ARCHITECTURE.md` is the authoritative design document — read it before touching anything under `course/`. It fixes the 12 blocks, the dependency graph, checkpoints, cross-cutting concerns, the Security Map, the Testing Progression and the Migration Map. `course/README.md` is the public-facing entry point. Lesson text is written for blocks 01 and 02 (each lesson has its own folder with `README.md`, `theory.md`, `practice.md`); a lesson folder appears only together with its text. Every `NN-*/README.md` holds that block's plan, which stays the source of truth for lessons not yet written.
+`course/COURSE_ARCHITECTURE.md` is the authoritative design document — read it before touching anything under `course/`. It fixes the 12 blocks, the dependency graph, checkpoints, cross-cutting concerns, the Security Map, the Testing Progression and the Migration Map. `course/README.md` is the public-facing entry point. Lesson text is written for blocks 01, 02 and 03 (each lesson has its own folder with `README.md`, `theory.md`, `practice.md`); a lesson folder appears only together with its text. Every `NN-*/README.md` holds that block's plan, which stays the source of truth for lessons not yet written.
 
 Rules that are easy to break:
 
