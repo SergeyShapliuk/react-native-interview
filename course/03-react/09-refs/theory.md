@@ -99,7 +99,7 @@ function NoteInput({ ref, ...props }) {
 }
 ```
 
-**React 18 и старше** — `ref` не доходил до компонента как пропс, и для пропуска нужен был `forwardRef`:
+**React 18 и более ранние версии** — `ref` не доходил до компонента как пропс, и для пропуска нужен был `forwardRef`:
 
 ```jsx
 const NoteInput = forwardRef(function NoteInput(props, ref) {

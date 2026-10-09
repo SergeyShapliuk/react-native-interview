@@ -199,7 +199,7 @@ const name = response?.data?.items?.[0]?.author?.profile?.displayName;
 {items?.length && <List items={items} />}
 ```
 
-`?.` здесь не помогает. При `items === undefined` выражение даёт `undefined` — React не отрендерит, нормально. Но при пустом массиве даёт `0`, и в React Native это падение «text strings must be rendered within a `<Text>` component». `?.` защитил от одного исхода и не затронул второй:
+`?.` здесь не помогает. При `items === undefined` выражение даёт `undefined` — React не отрендерит, нормально. Но при пустом массиве даёт `0`, и в React Native это ошибка «Text strings must be rendered within a `<Text>` component» в dev и тихо пропавший узел в release (1.3). `?.` защитил от одного исхода и не затронул второй:
 
 ```jsx
 {(items?.length ?? 0) > 0 && <List items={items} />}
