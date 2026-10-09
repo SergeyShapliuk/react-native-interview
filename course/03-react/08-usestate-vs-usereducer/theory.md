@@ -140,7 +140,7 @@ setCount((c) => c + 1);
 
 ```js
 test('подгрузка во время обновления игнорируется', () => {
-  const refreshing = { status: 'refreshing', items: [a], page: 1, hasMore: true };
+  const refreshing = { status: 'refreshing', items: [{ id: 'l1', title: 'Closures' }], page: 1, hasMore: true };
   expect(listReducer(refreshing, { type: 'loadMore' })).toBe(refreshing);
 });
 ```
